@@ -1,0 +1,134 @@
+body {
+   margin: 0;
+   background: linear-gradient(45deg, red, blue);
+   height: 100vh;
+   position: relative;
+}
+
+.title {
+   text-align: center;
+   color: #fff;
+   font-family: Impact;
+}
+
+.sphere {
+   position: absolute;
+   left: 30px;
+   top: -50px;
+   display: none;
+}
+
+.sphere--shown {
+   display: block;
+   animation: bounce 1.5s;
+}
+
+@keyframes bounce {
+   0% {
+      transform: translateY(-2000px);
+   }
+
+   70% {
+      transform: translateY(30px);
+   }
+
+   90% {
+      transform: translateY(-10px);
+   }
+
+   100% {
+      transform: translateY(0);
+   }
+}
+
+.disco {
+   position: absolute;
+   right: 30px;
+   top: 0;
+   font-size: 20px;
+   border-radius: 8px;
+   border: 2px solid white;
+   padding: 10px;
+   background-color: rgba(0, 0, 0, 0);
+   color: white;
+   cursor: pointer;
+   box-shadow: 3px 3px 10px black;
+}
+
+.disco:active {
+   box-shadow: inset 3px 3px 10px black;
+}
+
+.disco:focus {
+   outline: none;
+}
+
+.calculator {
+   width: fit-content;
+   margin: 0 auto;
+   display: flex;
+   flex-direction: column;
+   padding: 10px;
+}
+
+.calculator__input {
+   box-sizing: border-box;
+   height: 40px;
+   width: calc(100% - 8px);
+   margin: 0 auto;
+   padding: 0 5px;
+   font-size: 16px;
+   margin-bottom: 10px;
+   border: none;
+   border-radius: 10px;
+   box-shadow: 0 0 10px 0px black;
+}
+
+.calculator__wrap {
+   display: flex;
+   flex-wrap: wrap;
+   width: 240px;
+   height: calc(360px - 64px);
+}
+
+.calculator__button {
+   border-radius: 16px;
+   width: 50px;
+   height: 50px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 25px;
+   margin: 5px;
+   cursor: pointer;
+   background-color: #654b4b;
+   border: none;
+   color: #fff;
+   box-shadow: 2px 3px 8px 0px black;
+}
+
+.calculator__button:hover {
+   opacity: 0.85;
+}
+
+.calculator__button:active {
+   box-shadow: inset 2px 3px 10px black;
+}
+
+.calculator__button:focus {
+   outline: none;
+}
+
+.calculator__button--equal {
+   height: 110px;
+}
+
+.calculator__button--dot {
+   width: 110px;
+}
+
+.calculator__button--zero,
+.calculator__button--dot {
+   position: relative;
+   top: -60px;
+}
