@@ -5,6 +5,7 @@ var
    input = document.querySelector('.calculator__input'),
    pageBody = document.body,
    disco = false,
+   audio = new Audio('audio/TheBeeGees-StayinAlive.mp3'),
    sphere = document.querySelector('.sphere'),
    discoBtn = document.querySelector('.disco'),
    btnsArr = document.querySelectorAll('.calculator__button'),
@@ -35,7 +36,7 @@ function getRandomIndex(length) {
 
 function getRandomNumber(max, min) {
    return Math.floor(Math.random() * (max - min + 1) + min);
-}
+};
 
 btnsBlock.onclick = function(evt) {
    if (evt.target.value === 'C' ||
@@ -59,18 +60,21 @@ btnsBlock.onclick = function(evt) {
          valueChecker();
       }
    }
-}
+};
 
 discoBtn.addEventListener('click', function() {
    disco = !disco;
    if (disco) {
-      sphere.classList.add('sphere--shown');
-      discoBtn.innerHTML = 'STOP IT!'
+      audio.play().then(function() {
+         sphere.classList.add('sphere--shown');
+         discoBtn.innerHTML = 'STOP IT!';
+      });
    } else {
+      audio.pause();
       sphere.classList.remove('sphere--shown');
-      discoBtn.innerHTML = 'if u want disco'
+      discoBtn.innerHTML = 'if u want disco';
    }
-})
+});
 
 function toNormalView() {
    btnsArr.forEach(function(btn) {
@@ -84,7 +88,7 @@ function toNormalView() {
       }
       btn.style.left = 0 + 'px';
    })
-}
+};
 
 function valueChecker() {
    if (+input.value === 5051) {
@@ -97,7 +101,7 @@ function valueChecker() {
          btn.style.top = getRandomNumber(0, clientHeight) + 'px';
       })
    }
-}
+};
 
 setInterval(function() {
    if (disco) {
@@ -106,4 +110,4 @@ setInterval(function() {
          secondColor = colorArr[getRandomIndex(colorArr.length)];
       pageBody.style.background = 'linear-gradient(45deg,' + firstColor + ',' + secondColor;
    }
-}, 500)
+}, 500);
