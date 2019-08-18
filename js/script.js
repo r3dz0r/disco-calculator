@@ -30,38 +30,51 @@ var
       'lime'
    ];
 
+/**
+ * method for for get random index
+ * @param {number} length of array
+ */
 function getRandomIndex(length) {
    return Math.floor(Math.random() * length);
 };
 
+/**
+ * method for get random number
+ * @param {number} max number
+ * @param {number} min number
+ */
 function getRandomNumber(max, min) {
    return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
+// listener for buttons
 btnsBlock.onclick = function(evt) {
-   if (evt.target.value === 'C' ||
-      evt.target.value === '<' ||
-      evt.target.value === '=') {
-      if (evt.target.value === 'C') {
+   switch (evt.target.value) {
+      case 'C':
+         // clear button
          input.value = '';
          toNormalView();
-      }
-      if (input.value && evt.target.value === '=') {
+         break;
+      case '=':
+         // equal button
          input.value = eval(input.value);
          valueChecker();
-      }
-      if (evt.target.value === '<') {
+         break;
+      case '<':
+         // backspace button
          input.value = input.value.substring(0, input.value.length - 1);
          valueChecker();
-      }
-   } else {
-      if (evt.target.value !== undefined) {
+         break;
+      default:
+         if (!evt.target.value) {
+            return false;
+         }
          input.value = input.value + evt.target.value;
          valueChecker();
-      }
    }
 };
 
+// click listener too rule them all
 discoBtn.addEventListener('click', function() {
    disco = !disco;
    if (disco) {
@@ -76,6 +89,9 @@ discoBtn.addEventListener('click', function() {
    }
 });
 
+/**
+ * method to return buttons on default positions
+ */
 function toNormalView() {
    btnsArr.forEach(function(btn) {
       if (btn.classList.contains('calculator__button--zero') ||
@@ -90,6 +106,9 @@ function toNormalView() {
    })
 };
 
+/**
+ * easter egg
+ */
 function valueChecker() {
    if (+input.value === 5051) {
       var
@@ -103,6 +122,9 @@ function valueChecker() {
    }
 };
 
+/**
+ * interval for change linear gradient
+ */
 setInterval(function() {
    if (disco) {
       var
