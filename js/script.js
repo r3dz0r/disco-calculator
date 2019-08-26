@@ -9,26 +9,7 @@ var
    sphere = document.querySelector('.sphere'),
    discoBtn = document.querySelector('.disco'),
    btnsArr = document.querySelectorAll('.calculator__button'),
-   colorArr = [
-      'white',
-      'blue',
-      'black',
-      'magenta',
-      'red',
-      'green',
-      'brown',
-      'crimson',
-      'pink',
-      'gold',
-      'lightsalmon',
-      'indianred',
-      'aqua',
-      'lightcyan',
-      'moccasin',
-      'lavender',
-      'snow',
-      'lime'
-   ];
+   REG_NUMBER = /^[0-9]$/;
 
 /**
  * method for for get random index
@@ -69,10 +50,35 @@ btnsBlock.onclick = function(evt) {
          if (!evt.target.value) {
             return false;
          }
-         input.value = input.value + evt.target.value;
+         var lastLetter = input.value.slice(-1);
+
+         // check last letter of input
+         switch (lastLetter) {
+            case '*':
+            case '+':
+            case '/':
+            case '.':
+            case '-':
+
+               // if value is not a number - return
+               if (!+evt.target.value) {
+                  return false;
+               }
+         }
+         input.value += evt.target.value;
          valueChecker();
    }
 };
+
+/**
+ * key ups events
+ */
+document.addEventListener('keyup', function(evt) {
+   if (REG_NUMBER.exec(evt.key)) {
+      input.value += evt.key;
+      valueChecker();
+   }
+});
 
 // click listener too rule them all
 discoBtn.addEventListener('click', function() {
@@ -113,11 +119,19 @@ function valueChecker() {
    if (+input.value === 5051) {
       var
          clientWidth = document.body.clientWidth,
-         clientHeight = document.body.clientHeight;
+         clientHeight = document.body.clientHeight,
+         btnPoisitionX,
+         btnPoisitionY;
       btnsArr.forEach(function(btn) {
          btn.style.position = 'absolute';
-         btn.style.left = getRandomNumber(0, clientWidth) + 'px';
-         btn.style.top = getRandomNumber(0, clientHeight) + 'px';
+         btnPoisitionX = getRandomNumber(0, clientWidth);
+         btnPoisitionY = getRandomNumber(0, clientHeight);
+         btn.style.left = (clientWidth - btnPoisitionX) < btn.offsetWidth ?
+            clientWidth - btn.offsetWidth - 10 + 'px' :
+            btnPoisitionX + 'px';
+         btn.style.top = (clientHeight - btnPoisitionY) < btn.offsetHeight ?
+            clientHeight - btn.offsetHeight - 10 + 'px' :
+            btnPoisitionY + 'px';
       })
    }
 };
@@ -128,8 +142,10 @@ function valueChecker() {
 setInterval(function() {
    if (disco) {
       var
-         firstColor = colorArr[getRandomIndex(colorArr.length)],
-         secondColor = colorArr[getRandomIndex(colorArr.length)];
-      pageBody.style.background = 'linear-gradient(45deg,' + firstColor + ',' + secondColor;
+         firstColor = 'rgb(' + getRandomNumber(255, 0).toString() + ', ' + getRandomNumber(255, 0).toString() + ', ' + getRandomNumber(255, 0).toString() + ')',
+         secondColor = 'rgb(' + getRandomNumber(255, 0).toString() + ', ' + getRandomNumber(255, 0).toString() + ', ' + getRandomNumber(255, 0).toString() + ')',
+         isPositive = Math.random() >= 0.5 ? '' : '-',
+         gradientDeg = getRandomNumber(360, 0).toString() + 'deg,';
+      pageBody.style.background = 'linear-gradient(' + isPositive + gradientDeg + firstColor + ',' + secondColor;
    }
 }, 500);
