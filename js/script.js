@@ -55,6 +55,9 @@
             this.initListeners();
          },
 
+         /**
+          * method needs for init calculator buttons
+          */
          initElements: function() {
             let elemBtn;
             valueBtnsSmall.forEach(function(btn) {
